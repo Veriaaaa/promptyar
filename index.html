@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پرامپت یار | بانک ۵۷۰ پرامپت تخصصی معلمان، استادان و مشاوران</title>
+<meta name="description" content="۵۷۰ پرامپت آماده و تست‌شده برای مدرسه، دانشگاه و مشاوران؛ از طرح درس و نمونه سؤال تا نامه‌های اداری. کپی یک‌کلیکی، جستجوی سریع، فیلتر درس/پایه/رشته، علاقه‌مندی‌ها و خروجی JSON.">
+<meta name="theme-color" content="#0d211c">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://promptyar.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:site_name" content="پرامپت یار">
+<meta property="og:title" content="پرامپت یار | بانک ۵۷۰ پرامپت تخصصی آموزش">
+<meta property="og:description" content="۵۷۰ پرامپت آماده برای معلمان، استادان و مشاوران؛ فقط جاهای خالی را پر کنید و با یک کلیک کپی بگیرید.">
+<meta property="og:url" content="https://promptyar.netlify.app/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="پرامپت یار | بانک ۵۷۰ پرامپت تخصصی آموزش">
+<meta name="twitter:description" content="۵۷۰ پرامپت آماده برای معلمان، استادان و مشاوران؛ کپی یک‌کلیکی.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="fonts/vazirmatn-arabic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/vazirmatn-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/lalezar-arabic.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+/* ===== فقط تم تیره ===== */
+:root{
+  --paper:#0d211c; --card:#15322a; --ink:#ecf3ec; --ink-soft:#cfe0d3;
+  --muted:#93ac9e; --line:#274c3f;
+  --board:#123128; --board-2:#0e2820; --chalk:#e9f2e7; --chalk-dim:rgba(233,242,231,.55);
+  --accent:#ffd84d; --accent-ink:#ffd84d; --ok:#43c18b; --fav:#ffd84d;
+  --c-teach:#4fd39a; --c-exam:#7aa8ff; --c-class:#ffab5e;
+  --c-research:#c79bf2; --c-admin:#ff8b96; --c-counsel:#f472c5; --c-tutor:#2dd4bf;
+  --ph-bg:#ffd84d; --ph-ink:#4a3b00; --ph-line:#a17c00;
+  --rule:rgba(236,243,236,.09); --grid-line:rgba(233,242,231,.045);
+  --glare:rgba(255,255,255,.10);
+  --shadow:0 14px 30px -18px rgba(0,0,0,.6);
+  --panel-bg:rgba(18,49,40,.92); --panel-border:rgba(233,242,231,.15); --panel-ink:#cfe0d3;
+  --panel-dots:rgba(233,242,231,.25);
+  --tutorial-bg:#0e2a24; --tutorial-border:#1e4338;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Vazirmatn',Tahoma,system-ui,sans-serif;
+  background:var(--paper);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size:30px 30px;
+  color:var(--ink); line-height:1.9;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent);color:#3c3000}
+button,input{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{width:min(1140px, 100% - 2.4rem);margin-inline:auto}
+.mono{font-family:'IBM Plex Mono',monospace;direction:ltr}
+
+/* ===== نوار بالا ===== */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(13,33,28,.86);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:.65rem 0}
+.brand{display:flex;align-items:center;gap:.6rem}
+.brand-badge{
+  width:42px;height:42px;border-radius:12px;flex-shrink:0;
+  background:var(--board);color:var(--accent);
+  display:grid;place-items:center;font-size:1.2rem;
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.25), 0 6px 12px -6px rgba(0,0,0,.4);
+  transition:transform .5s cubic-bezier(.3,1.6,.5,1);
+}
+.brand:hover .brand-badge{transform:rotateY(180deg)}
+.brand-name{font-family:'Lalezar';font-size:1.3rem;line-height:1.2}
+.brand-sub{display:block;font-size:.68rem;color:var(--muted);font-weight:500;margin-top:-4px}
+
+.nav-menu{display:flex;align-items:center;gap:.3rem}
+.nav-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.45rem .9rem;border-radius:999px;font-weight:600;font-size:.88rem;
+  color:var(--muted);
+  transition:background .25s, color .25s;
+}
+.nav-link:hover{background:rgba(255,216,77,.12);color:var(--ink)}
+.nav-link.active{background:var(--accent);color:#3c3000}
+@media (max-width:768px){.nav-menu{display:none}}
+
+/* ===== هیرو ===== */
+.hero{padding:3rem 0 3.5rem;overflow:hidden;position:relative}
+.hero-scene{position:relative;perspective:1600px;perspective-origin:50% 40%}
+.board-3d{
+  position:relative;z-index:1;transform-style:preserve-3d;
+  transform:rotateX(4deg);
+  width:min(760px, 100% - 2rem);margin-inline:auto;
+}
+.board-face{
+  position:absolute;inset:0;border-radius:18px;
+  background:
+    radial-gradient(900px 300px at 80% -10%, rgba(255,255,255,.08), transparent 60%),
+    linear-gradient(160deg, var(--board), var(--board-2));
+  box-shadow:
+    0 0 0 10px #8a5a2b, 0 0 0 13px #5f3d1c,
+    inset 0 0 70px rgba(0,0,0,.38);
+}
+.board-content{
+  position:relative;z-index:2;color:var(--chalk);
+  transform:translateZ(34px);
+  padding:2.4rem 2.2rem 2.8rem;
+}
+.board-doodles{position:absolute;inset:0;z-index:3;pointer-events:none;color:var(--chalk);
+  transform:translateZ(70px) translate3d(calc(var(--par-x,0px)*1.6), calc(var(--par-y,0px)*1.6), 0)}
+.dd{position:absolute;opacity:.4;animation:floaty 7s ease-in-out infinite alternate}
+.dd1{top:12%;left:6%}
+.dd2{bottom:16%;left:11%;animation-delay:-2.5s;font-size:1.4rem}
+.board-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4rem 1rem;
+  font-size:.82rem;color:var(--chalk-dim);margin-bottom:1rem}
+.board-top .mark{color:var(--accent)}
+.kicker{font-family:'Lalezar';color:var(--accent);font-size:1.05rem;margin-bottom:.2rem;
+  animation:rise .7s .05s cubic-bezier(.2,.7,.3,1) backwards}
+.board-content h1{
+  font-family:'Lalezar';font-weight:400;color:var(--chalk);
+  font-size:clamp(1.85rem, 4.8vw, 3rem);line-height:1.3;
+  text-shadow:0 3px 0 rgba(0,0,0,.22);
+  animation:rise .7s .15s cubic-bezier(.2,.7,.3,1) backwards}
+.ring{position:relative;display:inline-block;white-space:nowrap;padding:0 .12em}
+.ring svg{position:absolute;inset:-14% -8%;width:116%;height:130%}
+.ring ellipse{fill:none;stroke:var(--accent);stroke-width:3;transform:rotate(-1.5deg);transform-origin:center}
+.lede{margin-top:.8rem;font-size:.95rem;color:var(--chalk-dim);
+  animation:rise .7s .28s cubic-bezier(.2,.7,.3,1) backwards}
+.lede b{color:var(--chalk)}
+.stats-row{display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;margin-top:1.2rem;
+  animation:rise .7s .4s cubic-bezier(.2,.7,.3,1) backwards}
+.stat{display:flex;align-items:baseline;gap:.4rem}
+.stat b{font-family:'Lalezar';font-size:1.7rem;color:var(--accent);line-height:1}
+.stat span{font-size:.82rem;color:var(--chalk-dim)}
+.board-tray{
+  position:absolute;left:-14px;right:-14px;bottom:-22px;height:18px;z-index:4;
+  background:linear-gradient(#a97c50,#8a5a2b 70%,#6f451f);border-radius:8px;
+  transform:translateZ(46px);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.28), 0 14px 22px -10px rgba(0,0,0,.45)}
+.board-tray i{position:absolute;bottom:5px;height:8px;border-radius:4px;box-shadow:0 2px 3px rgba(0,0,0,.3)}
+.ch1{inset-inline-start:8%;width:42px;background:#f5f2e9}
+.ch2{inset-inline-start:15%;width:34px;background:var(--accent);transform:rotate(2deg)}
+.ch3{inset-inline-start:20%;width:26px;background:#f7b1c0;transform:rotate(-3deg)}
+.board-shadow{
+  position:absolute;left:10%;right:10%;bottom:-46px;height:36px;z-index:0;
+  background:radial-gradient(closest-side, rgba(10,25,20,.4), transparent);
+  filter:blur(6px)}
+@media (max-width:640px){
+  .board-face{box-shadow:0 0 0 7px #8a5a2b, 0 0 0 9px #5f3d1c, inset 0 0 60px rgba(0,0,0,.38)}
+  .board-content{padding:1.7rem 1.2rem 2rem}
+  .board-tray{left:-10px;right:-10px}
+}
+
+/* آیکون‌های سه‌بعدی آموزشی کنار تخته */
+.edu-icons{position:absolute;inset:0;z-index:0;pointer-events:none}
+.edu-icon{
+  position:absolute;
+  font-size:2.8rem;
+  filter:drop-shadow(0 12px 12px rgba(0,0,0,.35));
+  transform-style:preserve-3d;
+  animation:floaty 6s ease-in-out infinite alternate;
+}
+.icon-book{top:15%;left:4%;animation-delay:-1s}
+.icon-pencil{top:35%;right:5%;animation-delay:-2s}
+.icon-ruler{bottom:20%;left:6%;animation-delay:-3s}
+.icon-globe{bottom:15%;right:4%;animation-delay:-4s}
+.icon-magnifier{top:55%;left:3%;animation-delay:-1.5s}
+.icon-calc{top:20%;right:12%;animation-delay:-2.5s}
+@media (max-width:900px){.edu-icons{display:none}}
+
+/* مکعب‌های شناور */
+.par{position:absolute;z-index:0;
+  transform:translate3d(calc(var(--par-x,0px)*var(--d,1)), calc(var(--par-y,0px)*var(--d,1)), 0)}
+.float-anim{animation:floaty 6.5s ease-in-out infinite alternate}
+.cube{position:relative;width:var(--s,50px);height:var(--s,50px);transform-style:preserve-3d;
+  animation:cubeSpin 18s linear infinite}
+.cube.rev{animation-direction:reverse;animation-duration:22s}
+.cube i{position:absolute;inset:0;border-radius:6px;border:2px solid rgba(255,255,255,.3)}
+.cube-y i{background:rgba(255,210,63,.82)}
+.cube-t i{background:rgba(46,158,107,.8)}
+.cube .f1{transform:rotateY(0deg) translateZ(calc(var(--s)/2))}
+.cube .f2{transform:rotateY(90deg) translateZ(calc(var(--s)/2))}
+.cube .f3{transform:rotateY(180deg) translateZ(calc(var(--s)/2))}
+.cube .f4{transform:rotateY(270deg) translateZ(calc(var(--s)/2))}
+.cube .f5{transform:rotateX(90deg) translateZ(calc(var(--s)/2))}
+.cube .f6{transform:rotateX(-90deg) translateZ(calc(var(--s)/2))}
+@keyframes cubeSpin{from{transform:rotateX(-18deg) rotateY(0)}to{transform:rotateX(-18deg) rotateY(360deg)}}
+@keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-12px)}}
+@media (max-width:900px){.par.cube-par{display:none}}
+
+/* پنل‌های شناور داخل صفحه */
+.fpanel{
+  position:absolute;z-index:2;pointer-events:none;
+  width:230px;
+  background:var(--panel-bg);
+  border:1px solid var(--panel-border);
+  border-radius:12px;padding:10px 12px;
+  box-shadow:0 14px 30px rgba(0,0,0,.45);
+  color:var(--panel-ink);
+}
+.fpanel-a{top:22%;inset-inline-start:2%;transform:rotate(-3.5deg) translate3d(calc(var(--par-x,0px)*1.7), calc(var(--par-y,0px)*1.7), 0)}
+.fpanel-b{bottom:22%;inset-inline-end:2%;transform:rotate(3deg) translate3d(calc(var(--par-x,0px)*1.3), calc(var(--par-y,0px)*1.3), 0)}
+.fp-head{display:flex;align-items:center;gap:6px;padding-bottom:6px;margin-bottom:6px;
+  border-bottom:1px solid var(--panel-border)}
+.fp-dots{display:flex;gap:4px}
+.fp-dots i{width:7px;height:7px;border-radius:50%;background:var(--panel-dots);display:block}
+.fp-path{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);direction:ltr;opacity:.8}
+.fp-body{font-size:11px;font-weight:500;line-height:1.65}
+.fp-body .ph{
+  background:var(--ph-bg);color:var(--ph-ink);font-weight:700;
+  padding:0 .35em;border-radius:4px;border-bottom:2px dashed var(--ph-line);
+  font-size:10.5px;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+@media (max-width:1100px){.fpanel{width:200px;padding:8px 10px}}
+@media (max-width:860px){.fpanel{display:none}}
+
+
+/* ===== بخش پرامپت‌ها ===== */
+.shelf{
+  position:relative;
+  padding-top:0;
+  padding-bottom:3.6rem;
+}
+.toolbar{
+  position:sticky;top:57px;z-index:40;
+  background:rgba(13,33,28,.88);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding:.85rem 0 .75rem;
+  border-bottom:1px solid var(--line);
+  margin-bottom:1.4rem;
+}
+.search-row{display:flex;gap:.7rem;align-items:stretch;flex-wrap:wrap}
+.search-box{
+  flex:1;min-width:240px;display:flex;align-items:center;gap:.7rem;
+  background:var(--card);border:2px solid var(--line);border-radius:14px;
+  padding:0 1rem;box-shadow:var(--shadow);
+  transition:border-color .25s, box-shadow .25s}
+.search-box:focus-within{border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(255,216,77,.18)}
+.search-box svg{flex-shrink:0;color:var(--muted)}
+.search-box input{flex:1;min-width:60px;border:0;background:transparent;outline:0;padding:.85rem 0;font-size:1rem}
+.search-box input::placeholder{color:var(--muted)}
+.kbd{border:1px solid var(--line);border-bottom-width:2.5px;border-radius:6px;
+  padding:.05em .55em;font-size:.75rem;color:var(--muted);background:var(--paper)}
+.filter-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+.chip{
+  --c:var(--muted);
+  display:inline-flex;align-items:center;gap:.35rem;
+  border:1.5px solid color-mix(in srgb, var(--c) 45%, transparent);
+  color:color-mix(in srgb, var(--c) 82%, var(--ink));
+  background:color-mix(in srgb, var(--c) 10%, transparent);
+  border-radius:999px;padding:.25rem .8rem .3rem;
+  font-weight:700;font-size:.78rem;
+  box-shadow:0 3px 0 color-mix(in srgb, var(--c) 30%, transparent);
+  transition:transform .15s, background .25s, color .25s, box-shadow .15s}
+.chip:hover{transform:translateY(-2px)}
+.chip:active{transform:translateY(1px);box-shadow:0 1px 0 color-mix(in srgb, var(--c) 30%, transparent)}
+.chip .cnt{font-size:.68rem;opacity:.75;font-weight:800}
+.chip.active{background:var(--c);color:#fff;border-color:var(--c);
+  box-shadow:0 4px 10px -4px color-mix(in srgb, var(--c) 90%, #000)}
+
+/* ===== فیلترهای درس/پایه/رشته ===== */
+.dim-row{margin-top:.8rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.dim-sel{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--card);border:2px solid var(--line);border-radius:12px;
+  padding:.32rem .6rem .32rem .8rem;font-size:.8rem;font-weight:800;color:var(--ink-soft);
+  box-shadow:var(--shadow);transition:border-color .25s}
+.dim-sel:focus-within{border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(255,216,77,.15)}
+.dim-select{
+  appearance:none;-webkit-appearance:none;
+  background:var(--board);color:var(--chalk);
+  border:1px solid var(--line);border-radius:8px;
+  padding:.3rem 1.9rem .3rem .7rem;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--accent) 50%),linear-gradient(135deg,var(--accent) 50%,transparent 50%);
+  background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%;
+  background-size:5px 5px;background-repeat:no-repeat;
+  transition:border-color .2s}
+.dim-select:hover{border-color:var(--accent)}
+.dim-select:focus{outline:2px solid var(--accent);outline-offset:2px}
+.dim-select option{background:var(--card);color:var(--ink)}
+
+.shelf-body{padding:0}
+.shelf-head{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem 1rem;margin-bottom:1.4rem}
+.shelf-head h2{font-family:'Lalezar';font-weight:400;font-size:1.75rem;line-height:1.3}
+.count-pill{font-size:.85rem;font-weight:700;color:var(--muted);
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.2rem .9rem;
+  box-shadow:0 3px 0 color-mix(in srgb, var(--line) 70%, transparent)}
+.export-wrap{margin-inline-start:auto;display:flex;gap:.5rem;flex-wrap:wrap}
+.exp-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  border:1.5px solid var(--line);background:var(--card);border-radius:12px;
+  padding:.42rem .95rem;font-size:.8rem;font-weight:800;color:var(--ink-soft);
+  box-shadow:0 3px 0 var(--line);
+  transition:transform .15s, box-shadow .15s, border-color .25s}
+.exp-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 5px 0 var(--line);border-color:var(--accent)}
+.exp-btn:active:not(:disabled){transform:translateY(1px);box-shadow:0 0 0 var(--line)}
+.exp-btn:disabled{opacity:.45;cursor:not-allowed}
+.legend{width:100%;font-size:.83rem;color:var(--muted);display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+
+/* راهنمای شروع سریع برای مبتدیان */
+.quick-start{
+  background:var(--card);
+  border:2px solid var(--accent);
+  border-radius:16px;
+  padding:1.5rem;
+  margin-bottom:2rem;
+  box-shadow:0 10px 30px -15px rgba(255,216,77,.3);
+}
+.quick-start h3{font-family:'Lalezar';font-size:1.3rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.quick-start ol{padding-right:1.5rem;color:var(--ink-soft)}
+.quick-start li{margin-bottom:.6rem;line-height:1.7}
+.quick-start li b{color:var(--accent)}
+
+.grid{
+  perspective:1300px;
+  display:grid;grid-template-columns:repeat(auto-fill, minmax(min(100%, 335px), 1fr));
+  gap:1.4rem}
+
+.card3d{
+  --c:var(--muted);
+  position:relative;display:flex;flex-direction:column;
+  background:var(--card);border:1px solid var(--line);border-radius:15px;
+  padding:1rem; padding-inline-start:1.9rem;
+  box-shadow:var(--shadow);
+  backface-visibility:hidden;
+  transition:transform .2s ease-out, box-shadow .3s, border-color .3s;
+}
+.card3d::before{content:'';position:absolute;top:14px;bottom:14px;inset-inline-start:11px;width:2.5px;
+  border-radius:2px;background:color-mix(in srgb, var(--c) 55%, transparent)}
+.card3d::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(260px circle at var(--gx,50%) var(--gy,50%), var(--glare), transparent 65%);
+  opacity:0;transition:opacity .3s}
+.card3d.tilting{transition:transform .06s linear, box-shadow .3s, border-color .3s;will-change:transform}
+.card3d.tilting::after{opacity:1}
+.card3d.tilting{border-color:color-mix(in srgb, var(--c) 45%, var(--line));
+  box-shadow:0 26px 40px -22px rgba(0,0,0,.6)}
+.card3d.in{animation:cardIn3d .6s cubic-bezier(.2,.7,.3,1) var(--d,0ms) backwards}
+@keyframes cardIn3d{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.5rem}
+.cat-chip{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:color-mix(in srgb, var(--c) 15%, transparent);
+  border:1px solid color-mix(in srgb, var(--c) 35%, transparent);
+  color:color-mix(in srgb, var(--c) 85%, var(--ink));
+  border-radius:999px;padding:.18rem .75rem .24rem;
+  font-size:.76rem;font-weight:800}
+.head-side{display:flex;align-items:center;gap:.55rem}
+.star-btn{font-size:1.2rem;line-height:1;color:var(--muted);opacity:.55;
+  transition:transform .2s cubic-bezier(.3,1.8,.5,1), color .2s, opacity .2s}
+.star-btn:hover{transform:scale(1.3) rotate(12deg);opacity:1}
+.star-btn.faved{color:var(--fav);opacity:1;text-shadow:0 2px 6px rgba(255,216,77,.6)}
+.card-num{font-family:'Lalezar';font-size:1rem;color:var(--muted);opacity:.75}
+.card3d h3{font-size:1.04rem;font-weight:800;line-height:1.7;margin:.15rem 0 .55rem}
+.prompt-text{
+  flex:1;font-size:.92rem;color:var(--ink-soft);line-height:2;
+  background:repeating-linear-gradient(transparent, transparent calc(2em - 1px), var(--rule) calc(2em - 1px), var(--rule) 2em);
+  border:1px solid var(--line);border-radius:10px;
+  padding:.75rem .95rem;margin-bottom:.9rem}
+.ph{background:var(--ph-bg);color:var(--ph-ink);font-weight:700;
+  padding:0 .4em;border-radius:5px;border-bottom:2px dashed var(--ph-line);
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:filter .2s;cursor:help}
+.ph:hover{filter:brightness(1.08)}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap}
+.tags{display:flex;flex-wrap:wrap;gap:.2rem .55rem;font-size:.72rem;color:var(--muted);font-weight:600}
+.copy-btn{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:var(--board);color:var(--chalk);
+  font-weight:800;font-size:.85rem;border-radius:10px;padding:.55em 1.15em;
+  box-shadow:0 5px 0 var(--board-2), 0 12px 16px -8px rgba(0,0,0,.35);
+  transition:transform .15s, box-shadow .15s, background .3s}
+.copy-btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--board-2), 0 16px 18px -8px rgba(0,0,0,.35)}
+.copy-btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--board-2)}
+.copy-btn.copied{background:var(--ok);box-shadow:0 5px 0 color-mix(in srgb, var(--ok) 55%, #000);
+  animation:pop .4s cubic-bezier(.3,1.8,.5,1)}
+@keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+.load-more-wrap{display:flex;justify-content:center;margin-top:2rem}
+.load-more{
+  display:inline-flex;align-items:center;gap:.5rem;
+  border:2px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:14px;padding:.65rem 1.5rem;font-weight:800;font-size:.95rem;
+  box-shadow:0 4px 0 var(--line);
+  transition:transform .15s, box-shadow .15s, border-color .25s}
+.load-more:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--line);border-color:var(--accent)}
+.load-more:active{transform:translateY(2px);box-shadow:0 0 0 var(--line)}
+.load-more.hidden{display:none}
+
+.empty{display:none;text-align:center;border:2px dashed var(--line);border-radius:16px;
+  padding:3.2rem 1.5rem;background:color-mix(in srgb, var(--card) 60%, transparent)}
+.empty.show{display:block;animation:cardIn3d .45s backwards}
+.empty .big{font-size:2.7rem;display:block;margin-bottom:.4rem}
+.empty p{color:var(--muted);margin-bottom:1rem}
+.link-btn{color:var(--accent-ink);font-weight:800;text-decoration:underline;text-underline-offset:4px}
+
+/* ===== بخش آموزش پرامپت‌نویسی ===== */
+.tutorial{
+  padding:4.5rem 0 3rem;
+  background:var(--tutorial-bg);
+  border-block:1px solid var(--tutorial-border);
+  position:relative;
+}
+.tutorial::before{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.35;
+  background:
+    radial-gradient(400px 200px at 15% 10%, rgba(255,216,77,.14), transparent),
+    radial-gradient(400px 200px at 85% 90%, rgba(45,212,191,.14), transparent);
+}
+.tut-head{position:relative;text-align:center;max-width:720px;margin:0 auto 2.5rem}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;
+  color:var(--accent);background:rgba(255,216,77,.18);
+  border:1px solid rgba(255,216,77,.35);
+  border-radius:999px;padding:5px 14px;margin-bottom:16px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 10px var(--accent)}
+.tut-head h2{font-family:'Lalezar';font-weight:400;font-size:clamp(1.6rem, 3.5vw, 2.3rem);line-height:1.3}
+.tut-head p{margin-top:.7rem;color:var(--muted);font-size:1rem}
+
+.formula{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+  margin-bottom:2.5rem;
+}
+.fpart{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:16px;
+  padding:18px 16px;
+  position:relative;
+  transition:transform .3s, border-color .3s, box-shadow .3s;
+}
+.fpart:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 16px 30px -18px rgba(0,0,0,.6)}
+.fpart-num{
+  position:absolute;top:-14px;inset-inline-end:14px;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--board);color:var(--accent);
+  display:grid;place-items:center;font-family:'Lalezar';font-size:1.1rem;
+  box-shadow:0 4px 10px -4px rgba(0,0,0,.5);
+}
+.fpart h3{font-family:'Lalezar';font-weight:400;font-size:1.15rem;margin:10px 0 6px}
+.fpart-desc{font-size:.86rem;color:var(--muted);line-height:1.75;margin-bottom:12px}
+.fpart-ask{font-size:.82rem;color:var(--ink-soft);font-weight:500;margin-bottom:8px}
+.fpart-ex{
+  font-size:.78rem;color:var(--ink-soft);
+  background:rgba(255,216,77,.12);
+  border-inline-start:3px solid var(--accent);
+  border-radius:6px;
+  padding:8px 10px;line-height:1.75;
+  font-family:'IBM Plex Mono',monospace;
+}
+.fpart-ex b{color:var(--ink);font-weight:600}
+@media (max-width:900px){
+  .formula{grid-template-columns:repeat(2, 1fr);gap:16px}
+}
+@media (max-width:520px){
+  .formula{grid-template-columns:1fr}
+}
+
+/* نمونه کامل پرامپت طلایی */
+.golden-example{
+  background:linear-gradient(135deg, var(--board), var(--board-2));
+  color:var(--chalk);
+  border-radius:18px;
+  padding:28px 28px;
+  margin-bottom:2.5rem;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 20px 40px -20px rgba(0,0,0,.6);
+}
+.golden-example::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(300px 150px at 100% 0%, rgba(255,210,63,.18), transparent);
+}
+.golden-example > *{position:relative}
+.golden-example h3{font-family:'Lalezar';font-size:1.4rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem}
+.golden-prompt{
+  background:rgba(0,0,0,.25);
+  border-radius:12px;
+  padding:1.2rem;
+  font-size:.95rem;
+  line-height:2;
+  margin-bottom:1.2rem;
+  border:1px solid rgba(255,255,255,.1);
+}
+.golden-prompt .role{color:#4fd39a;font-weight:700}
+.golden-prompt .context{color:#7aa8ff;font-weight:700}
+.golden-prompt .task{color:#ffab5e;font-weight:700}
+.golden-prompt .format{color:#c79bf2;font-weight:700}
+.golden-legend{
+  display:flex;flex-wrap:wrap;gap:1rem;font-size:.85rem;
+}
+.golden-legend span{display:inline-flex;align-items:center;gap:.4rem}
+.golden-legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.golden-legend .lg-role i{background:#4fd39a}
+.golden-legend .lg-context i{background:#7aa8ff}
+.golden-legend .lg-task i{background:#ffab5e}
+.golden-legend .lg-format i{background:#c79bf2}
+
+.tips-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap:14px;
+}
+.tip{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;gap:12px;align-items:flex-start;
+  transition:transform .25s, border-color .25s;
+}
+.tip:hover{transform:translateY(-3px);border-color:var(--accent)}
+.tip-ic{
+  flex-shrink:0;
+  width:36px;height:36px;border-radius:10px;
+  background:rgba(255,216,77,.18);
+  color:var(--accent);
+  display:grid;place-items:center;font-size:1.1rem;
+}
+.tip h4{font-size:.92rem;font-weight:800;margin-bottom:3px}
+.tip p{font-size:.8rem;color:var(--muted);line-height:1.7}
+
+footer{border-top:1px solid var(--line);padding:2.2rem 0 2.6rem;text-align:center;color:var(--muted);font-size:.86rem}
+footer .heart{color:var(--c-admin)}
+footer kbd{border:1px solid var(--line);border-bottom-width:2.5px;border-radius:6px;padding:.05em .5em;background:var(--card);font-size:.78rem}
+.toast{
+  position:fixed;bottom:1.4rem;left:50%;z-index:100;
+  transform:translate(-50%, 80px);opacity:0;pointer-events:none;
+  background:var(--board);color:var(--chalk);
+  border-radius:999px;padding:.6rem 1.3rem;font-weight:800;font-size:.88rem;white-space:nowrap;
+  box-shadow:0 5px 0 var(--board-2), 0 16px 26px -12px rgba(0,0,0,.6);
+  transition:transform .45s cubic-bezier(.3,1.5,.5,1), opacity .3s}
+.toast.show{transform:translate(-50%, 0);opacity:1}
+
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ===== نمای موبایل (≤560px) ===== */
+@media (max-width:560px){
+  .wrap{width:calc(100% - 1.6rem)}
+  /* ناوبری: ردیف دوم اسکرول‌شونده زیر برند */
+  .topbar-in{flex-wrap:wrap;gap:6px 14px}
+  .nav-menu{display:flex;width:100%;gap:2px;overflow-x:auto;padding-bottom:2px}
+  .nav-link{font-size:.8rem;padding:.3rem .7rem;white-space:nowrap}
+  /* تولبار موبایل: چسبان نیست تا بعد از اسکرول همهٔ صفحه برای کارت‌ها آزاد شود
+     (relative می‌ماند تا پنل کشویی فیلترها سر جای خودش باز شود) */
+  .toolbar{position:relative;top:auto;padding:.7rem 0 .6rem;margin-bottom:1rem}
+  /* جستجو و فیلتر: دکمهٔ فیلتر تمام‌عرض زیر جستجو */
+  .search-row{gap:.5rem}
+  .filter-toggle{width:100%;justify-content:center;padding:.62rem .8rem}
+  .search-box{min-width:0}
+  /* چیپ‌ها: فشرده‌تر و بدون شمارنده تا ردیف‌های کمتری بگیرند (شمارنده در پنل فیلترها هست) */
+  .chips-scroll{gap:.3rem}
+  .chips-scroll .chip{padding:.16rem .55rem .2rem;font-size:.68rem}
+  .chips-scroll .chip .cnt{display:none}
+  /* هدر بخش پرامپت‌ها */
+  .shelf-head{gap:.5rem .8rem}
+  .export-wrap{width:100%;margin-inline-start:0}
+  .legend{order:99}
+  /* کارت‌ها */
+  .grid{gap:1rem}
+  .card3d{padding-inline-start:1.6rem}
+  /* پنل فیلترها: انتخاب‌گرهای تمام‌عرض */
+  .toolbar-filters .dim-sel{flex:1 1 100%}
+  .dim-row{gap:.45rem}
+  /* سایر بخش‌ها */
+  .quick-start{padding:1.1rem}
+  .golden-example{padding:18px 14px}
+  .toast{max-width:calc(100vw - 2rem);white-space:normal;text-align:center}
+  .faq-item summary{font-size:.9rem;padding:.9rem 1rem}
+  footer{padding:1.8rem 0 2.2rem}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+
+/* ===== فونت‌های محلی (self-hosted) ===== */
+@font-face{
+  font-family:'Vazirmatn';
+  font-style:normal;
+  font-weight:300 800;
+  font-display:swap;
+  src:url(fonts/vazirmatn-arabic.woff2) format('woff2');
+  unicode-range:U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+@font-face{
+  font-family:'Vazirmatn';
+  font-style:normal;
+  font-weight:300 800;
+  font-display:swap;
+  src:url(fonts/vazirmatn-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Lalezar';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(fonts/lalezar-arabic.woff2) format('woff2');
+  unicode-range:U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+@font-face{
+  font-family:'Lalezar';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(fonts/lalezar-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'IBM Plex Mono';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(fonts/ibmplexmono-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ===== CTA هیرو ===== */
+.hero-cta{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.5rem;
+  animation:rise .7s .5s cubic-bezier(.2,.7,.3,1) backwards}
+.hbtn{display:inline-flex;align-items:center;gap:.45rem;border-radius:12px;
+  font-weight:800;font-size:.95rem;padding:.62rem 1.3rem;
+  transition:transform .15s, box-shadow .15s, background .25s, border-color .25s}
+.hbtn-main{background:var(--accent);color:#3c3000;
+  box-shadow:0 5px 0 #a17c00, 0 12px 18px -8px rgba(0,0,0,.4)}
+.hbtn-main:hover{transform:translateY(-2px);box-shadow:0 7px 0 #a17c00, 0 16px 20px -8px rgba(0,0,0,.4)}
+.hbtn-main:active{transform:translateY(2px);box-shadow:0 2px 0 #a17c00}
+.hbtn-ghost{border:2px solid var(--panel-border);color:var(--chalk);background:rgba(255,255,255,.05)}
+.hbtn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ===== ردیف چیپ‌های دسته‌بندی (همیشه قابل‌مشاهده، یک‌ردیفه و فشرده) ===== */
+.chips-scroll{
+  display:flex;gap:.45rem;flex-wrap:wrap;
+  padding:.5rem 0 .4rem;margin-top:.3rem;
+}
+.chips-scroll::-webkit-scrollbar{display:none}
+.chips-scroll .chip{flex-shrink:0;white-space:nowrap;padding:.2rem .7rem .26rem;font-size:.75rem}
+
+/* ===== دکمهٔ فیلترها و پنل کشویی (نوار همیشه یک‌ردیفه و باثبات) ===== */
+.filter-toggle{
+  flex-shrink:0;display:inline-flex;align-items:center;gap:.5rem;
+  border:2px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:14px;padding:.6rem 1rem;font-weight:800;font-size:.85rem;
+  box-shadow:var(--shadow);white-space:nowrap;
+  transition:border-color .25s, transform .15s, color .25s;
+}
+.filter-toggle:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.filter-toggle:active{transform:translateY(1px)}
+.filter-count{
+  display:none;background:var(--accent);color:#3c3000;
+  font-size:.72rem;font-weight:800;border-radius:999px;padding:.05rem .5rem;
+}
+.filter-count.show{display:inline-block}
+
+/* پنل کشویی: روی محتوا می‌نشیند تا صفحه تکان نخورد */
+.toolbar-filters{
+  position:absolute;top:calc(100% + 10px);inset-inline:0;z-index:45;
+  display:none;
+  background:rgba(13,33,28,.97);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--line);border-radius:16px;
+  padding:1rem 1.1rem;
+  box-shadow:0 22px 44px -18px rgba(0,0,0,.7);
+  max-height:70vh;overflow:auto;
+}
+.toolbar-filters.open{display:block;animation:rise .28s cubic-bezier(.2,.7,.3,1) backwards}
+.toolbar-filters .filter-row{margin-top:0}
+.toolbar-filters .dim-row{margin-top:.9rem}
+
+/* ===== دکمهٔ اشتراک‌گذاری کارت ===== */
+.share-btn{display:inline-flex;padding:.15rem;font-size:.95rem;line-height:1;
+  color:var(--muted);opacity:.55;
+  transition:transform .2s, color .2s, opacity .2s}
+.share-btn:hover{color:var(--accent);opacity:1;transform:scale(1.15)}
+
+/* ===== کپی نمونهٔ طلایی ===== */
+.golden-copy{margin-inline-start:auto;background:var(--accent);color:#4a3b00;
+  box-shadow:0 4px 0 #a17c00;font-size:.8rem;padding:.45em 1em}
+.golden-copy:hover{transform:translateY(-2px);box-shadow:0 6px 0 #a17c00}
+.golden-copy:active{transform:translateY(2px);box-shadow:0 1px 0 #a17c00}
+.golden-copy.copied{background:var(--ok);color:#fff;box-shadow:0 4px 0 color-mix(in srgb, var(--ok) 55%, #000)}
+
+/* ===== سؤال‌های پرتکرار ===== */
+.faq{padding:4.2rem 0 4.6rem;border-top:1px solid var(--line)}
+.faq-list{max-width:780px;margin:0 auto;display:grid;gap:.75rem}
+.faq-item{background:var(--card);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;
+  transition:border-color .25s}
+.faq-item[open]{border-color:color-mix(in srgb, var(--accent) 55%, var(--line))}
+.faq-item summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.7rem;
+  padding:1rem 1.2rem;font-weight:800;font-size:.98rem}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';margin-inline-start:auto;color:var(--accent);
+  font-size:1.45rem;font-weight:400;line-height:1;transition:transform .25s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item summary:hover{color:var(--accent)}
+.faq-item .faq-a{padding:0 1.2rem 1.15rem;color:var(--ink-soft);font-size:.9rem;line-height:2}
+
+/* ===== دکمهٔ بازگشت به بالا ===== */
+.toTop{position:fixed;bottom:1.4rem;inset-inline-start:1.4rem;z-index:90;
+  width:46px;height:46px;border-radius:14px;
+  background:var(--board);color:var(--accent);font-size:1.25rem;font-weight:800;
+  box-shadow:0 5px 0 var(--board-2), 0 14px 22px -10px rgba(0,0,0,.5);
+  opacity:0;pointer-events:none;transform:translateY(14px);
+  transition:opacity .3s, transform .3s}
+.toTop.show{opacity:1;pointer-events:auto;transform:none}
+.toTop:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#">
+      <span class="brand-badge">✏️</span>
+      <span>
+        <span class="brand-name">پرامپت یار</span>
+        <span class="brand-sub">مدرسه 🎒 دانشگاه 🎓 مشاور 🧠</span>
+      </span>
+    </a>
+    
+    <nav class="nav-menu">
+      <a href="#" class="nav-link active" data-target="hero">خانه</a>
+      <a href="#shelf" class="nav-link" data-target="shelf">پرامپت‌ها</a>
+      <a href="#tutorial" class="nav-link" data-target="tutorial">آموزش پرامپت‌نویسی</a>
+      <a href="#" class="nav-link" data-target="favs">⭐ علاقه‌مندی‌ها</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- هیرو -->
+  <section class="hero" id="hero">
+    <div class="hero-scene" id="heroScene">
+
+      <!-- آیکون‌های سه‌بعدی آموزشی -->
+      <div class="edu-icons" aria-hidden="true">
+        <span class="edu-icon icon-book">📚</span>
+        <span class="edu-icon icon-pencil">✏️</span>
+        <span class="edu-icon icon-ruler">📏</span>
+        <span class="edu-icon icon-globe">🌍</span>
+        <span class="edu-icon icon-magnifier">🔍</span>
+        <span class="edu-icon icon-calc">🧮</span>
+      </div>
+
+      <div class="par cube-par" style="--d:2.2;top:8%;left:3%"><div class="float-anim"><div class="cube cube-y" style="--s:46px"><i class="f1"></i><i class="f2"></i><i class="f3"></i><i class="f4"></i><i class="f5"></i><i class="f6"></i></div></div></div>
+      <div class="par cube-par" style="--d:1.8;bottom:10%;right:4%"><div class="float-anim" style="animation-delay:-3s"><div class="cube cube-t rev" style="--s:38px"><i class="f1"></i><i class="f2"></i><i class="f3"></i><i class="f4"></i><i class="f5"></i><i class="f6"></i></div></div></div>
+
+      <!-- ۲ پنل شناور داخل صفحه -->
+      <div class="fpanel fpanel-a" aria-hidden="true">
+        <div class="fp-head">
+          <span class="fp-dots"><i></i><i></i><i></i></span>
+          <span class="fp-path">~/teach/01</span>
+        </div>
+        <div class="fp-body">مفهوم [فتوسنتز] را با یک مثال ساده از زندگی روزمره برای پایهٔ [هفتم] توضیح بده.</div>
+      </div>
+      <div class="fpanel fpanel-b" aria-hidden="true">
+        <div class="fp-head">
+          <span class="fp-dots"><i></i><i></i><i></i></span>
+          <span class="fp-path">~/counsel/38</span>
+        </div>
+        <div class="fp-body">یک برنامهٔ مداخلهٔ [۶ جلسه‌ای] برای اضطراب امتحان پایهٔ [یازدهم] طراحی کن.</div>
+      </div>
+
+      <div class="board-3d" id="board3d">
+        <div class="board-face" aria-hidden="true"></div>
+        <div class="board-doodles" aria-hidden="true">
+          <span class="dd dd1"><svg width="80" height="20" viewBox="0 0 90 22" fill="none"><path d="M3 13 C 15 4, 26 20, 38 11 S 62 4, 74 12 S 84 16, 87 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+          <span class="dd dd2">✦</span>
+        </div>
+        <div class="board-content">
+          <div class="board-top">
+            <span id="chalkDate">امروز: …</span>
+            <span><span class="mark">✦</span> جلسهٔ اول — به پرامپت یار خوش آمدید</span>
+          </div>
+          <p class="kicker">🍎 از کلاس درس تا اتاق مشاوره</p>
+          <h1>بانک پرامپت‌های تخصصی
+            <span class="ring">آموزش
+              <svg viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="60" cy="22" rx="57" ry="19"/></svg>
+            </span>
+          </h1>
+          <p class="lede"><b id="ledeCount">۵۷۰</b> <b>پرامپت آماده</b> برای معلمان، استادان و مشاوران؛ از <b>طرح درس</b> و <b>نمونه سؤال</b> تا <b>توصیه‌نامه</b>. فقط جاهای خالی را پر کنید و <b>با یک کلیک</b> کپی بگیرید.</p>
+          <div class="stats-row">
+            <div class="stat"><b class="counter" id="countTotal" data-target="570">۰</b><span>پرامپت آماده</span></div>
+            <div class="stat"><b class="counter" id="countCats" data-target="7">۰</b><span>دستهٔ تخصصی</span></div>
+            <div class="stat"><b class="counter" data-target="1">۰</b><span>کلیک تا کپی</span></div>
+          </div>
+          <div class="hero-cta">
+            <a class="hbtn hbtn-main" href="#shelf">مشاهدهٔ پرامپت‌ها ↓</a>
+          </div>
+        </div>
+        <div class="board-tray" aria-hidden="true">
+          <i class="ch1"></i><i class="ch2"></i><i class="ch3"></i>
+        </div>
+      </div>
+      <div class="board-shadow" aria-hidden="true"></div>
+    </div>
+  </section>
+
+
+  <!-- بخش پرامپت‌ها -->
+  <section class="shelf" id="shelf">
+    <div class="wrap">
+      <div class="toolbar" id="toolbar">
+        <div class="search-row">
+          <label class="search-box" for="searchInput">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="searchInput" type="search" placeholder="جستجوی پرامپت؛ مثلاً: مشاور، آزمون، طرح درس…" autocomplete="off">
+            <span class="kbd">/</span>
+          </label>
+          <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="toolbarFilters">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+            <span id="filterToggleLabel">درس / پایه / رشته</span>
+            <span class="filter-count" id="filterCount"></span>
+          </button>
+        </div>
+        <div class="chips-scroll" id="chips" role="group" aria-label="دسته‌بندی پرامپت‌ها"></div>
+        <div class="toolbar-filters" id="toolbarFilters">
+          <div class="filter-row dim-row">
+            <label class="dim-sel" for="subjSel">📖 درس <select id="subjSel" class="dim-select" aria-label="فیلتر درس"></select></label>
+            <label class="dim-sel" for="gradeSel">🎓 پایه <select id="gradeSel" class="dim-select" aria-label="فیلتر پایه"></select></label>
+            <label class="dim-sel" for="majorSel">🧭 رشته <select id="majorSel" class="dim-select" aria-label="فیلتر رشته"></select></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="shelf-body">
+        <div class="shelf-head">
+          <h2>🎯 پرامپت‌ها</h2>
+          <span class="count-pill" id="resultCount" role="status"></span>
+          <div class="export-wrap">
+            <button class="exp-btn" id="exportAll" title="دانلود همهٔ پرامپت‌ها">⬇ خروجی JSON</button>
+            <button class="exp-btn" id="exportFavs" title="دانلود پرامپت‌های ستاره‌دار">⭐ علاقه‌مندی‌ها <span id="favExportCount"></span></button>
+          </div>
+          <p class="legend"><span class="ph">[خانه‌های زرد]</span> جاهای خالی را با اطلاعات خودت پر کن. ✏️</p>
+        </div>
+
+        <!-- راهنمای شروع سریع برای مبتدیان -->
+        <div class="quick-start">
+          <h3>🚀 چطور شروع کنم؟</h3>
+          <ol>
+            <li><b>یک پرامپت پیدا کن:</b> از جستجو، چیپ‌های دسته‌بندی یا دکمهٔ «فیلترها» (درس/پایه/رشته) استفاده کن.</li>
+            <li><b>جاهای خالی را پر کن:</b> قسمت‌های زرد رنگ را با اطلاعات خودت جایگزین کن.</li>
+            <li><b>کپی کن:</b> روی دکمهٔ «کپی پرامپت» بزن.</li>
+            <li><b>در هوش مصنوعی استفاده کن:</b> متن را در ChatGPT، Claude یا هر هوش مصنوعی دیگری بچسبان.</li>
+          </ol>
+        </div>
+
+        <div class="grid" id="grid"></div>
+        <div class="load-more-wrap">
+          <button class="load-more hidden" id="loadMore">بارگذاری پرامپت‌های بیشتر ↓</button>
+        </div>
+        <div class="empty" id="empty">
+          <span class="big">📭</span>
+          <p id="emptyMsg">پرامپتی با این مشخصات پیدا نشد!</p>
+          <button class="link-btn" id="resetBtn">پاک کردن جستجو و فیلترها</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- بخش آموزش پرامپت‌نویسی -->
+  <section class="tutorial" id="tutorial">
+    <div class="wrap">
+      <div class="tut-head">
+        <span class="eyebrow"><span class="dot"></span> در ۵ دقیقه یاد بگیر</span>
+        <h2>فرمول ۴ بخشی نوشتن یک پرامپت عالی</h2>
+        <p>پرامپت خوب اتفاقی نیست؛ از ۴ بخش ساده ساخته می‌شود. اگر هر بخش را واضح بنویسی، هوش مصنوعی دقیقاً همان چیزی را می‌دهد که می‌خواهی.</p>
+      </div>
+
+      <div class="formula">
+        <div class="fpart">
+          <span class="fpart-num">۱</span>
+          <h3>نقش بده</h3>
+          <p class="fpart-desc">به هوش مصنوعی بگو «تو چه کسی هستی». هرچه نقش تخصصی‌تر، پاسخ حرفه‌ای‌تر.</p>
+          <div class="fpart-ask">سؤال: چه کسی باید پاسخ دهد؟</div>
+          <div class="fpart-ex">«تو یک <b>معلم ریاضی باتجربهٔ پایهٔ هشتم</b> هستی...»</div>
+        </div>
+        <div class="fpart">
+          <span class="fpart-num">۲</span>
+          <h3>بافت بده</h3>
+          <p class="fpart-desc">شرایط، مخاطب و هدف را مشخص کن. بدون بافت، پاسخ کلی می‌شود.</p>
+          <div class="fpart-ask">سؤال: برای کی، در چه شرایطی؟</div>
+          <div class="fpart-ex">«برای <b>دانش‌آموزان کم‌انگیزهٔ پسر</b> در یک مدرسهٔ دولتی...»</div>
+        </div>
+        <div class="fpart">
+          <span class="fpart-num">۳</span>
+          <h3>وظیفهٔ شفاف</h3>
+          <p class="fpart-desc">دقیقاً بگو چه کاری انجام دهد. با افعال مشخص شروع کن.</p>
+          <div class="fpart-ask">سؤال: چه کاری انجام دهد؟</div>
+          <div class="fpart-ex">«<b>۵ فعالیت گروهی</b> طراحی کن که هر کدام <b>۱۰ دقیقه</b> طول بکشد...»</div>
+        </div>
+        <div class="fpart">
+          <span class="fpart-num">۴</span>
+          <h3>قالب خروجی</h3>
+          <p class="fpart-desc">فرمت نهایی را مشخص کن: جدول، لیست، بند، مکالمه و...</p>
+          <div class="fpart-ask">سؤال: خروجی چه شکلی باشد؟</div>
+          <div class="fpart-ex">«پاسخ را به‌صورت <b>جدول ۴ ستونه</b> با لحن <b>صمیمی</b> بنویس.»</div>
+        </div>
+      </div>
+
+      <!-- نمونه کامل پرامپت طلایی -->
+      <div class="golden-example">
+        <h3>✨ نمونهٔ کامل یک پرامپت طلایی
+          <button class="copy-btn golden-copy" id="copyGolden">کپی نمونه</button>
+        </h3>
+        <div class="golden-prompt">
+          <span class="role">تو یک معلم ریاضی باتجربهٔ پایهٔ هشتم هستی</span> که در مدارس دولتی تدریس می‌کنی. <span class="context">من ۲۵ دانش‌آموز پسر کم‌انگیزه دارم که در حل معادلات درجه یک مشکل دارند و معمولاً در کلاس بی‌حوصله هستند.</span> <span class="task">لطفاً ۵ فعالیت گروهی ۱۰ دقیقه‌ای طراحی کن</span> که هر کدام یک روش متفاوت برای آموزش معادلات درجه یک باشد و همهٔ دانش‌آموزان را درگیر کند. <span class="format">پاسخ را در یک جدول با ستون‌های «نام فعالیت»، «هدف آموزشی»، «وسایل مورد نیاز» و «زمان» ارائه بده.</span>
+        </div>
+        <div class="golden-legend">
+          <span class="lg-role"><i></i> نقش (سبز)</span>
+          <span class="lg-context"><i></i> بافت (آبی)</span>
+          <span class="lg-task"><i></i> وظیفه (نارنجی)</span>
+          <span class="lg-format"><i></i> قالب (بنفش)</span>
+        </div>
+      </div>
+
+      <div class="tips-grid">
+        <div class="tip">
+          <span class="tip-ic">🎯</span>
+          <div>
+            <h4>مثال بزن، نه فقط بگو</h4>
+            <p>به‌جای «یک متن خوب بنویس»، بگو «مثل سبک نویسندهٔ فلان کتاب بنویس».</p>
+          </div>
+        </div>
+        <div class="tip">
+          <span class="tip-ic">✂️</span>
+          <div>
+            <h4>یک کار در هر پرامپت</h4>
+            <p>پرامپت‌های طولانی و چندکاره، هوش مصنوعی را سردرگم می‌کنند. خرد کن.</p>
+          </div>
+        </div>
+        <div class="tip">
+          <span class="tip-ic">🔄</span>
+          <div>
+            <h4>بازنویسی کن</h4>
+            <p>اولین خروجی کامل نیست. به هوش مصنوعی بگو «این را ساده‌تر کن» یا «جدی‌تر بنویس».</p>
+          </div>
+        </div>
+        <div class="tip">
+          <span class="tip-ic">📋</span>
+          <div>
+            <h4>متن مرجع بده</h4>
+            <p>اگر می‌خواهی از روی چیزی بنویسد، متن یا نمونه را در پرامپت بچسبان.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- سؤال‌های پرتکرار -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="tut-head">
+        <span class="eyebrow"><span class="dot"></span> راهنمای سریع</span>
+        <h2>سؤال‌های پرتکرار</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>این پرامپت‌ها را کجا می‌توانم استفاده کنم؟</summary>
+          <div class="faq-a">در هر چت‌بات هوش مصنوعی: ChatGPT، Claude، Gemini، Copilot و هر ابزار دیگری. متن پرامپت را کپی کنید، جاهای خالی زردرنگ را با اطلاعات خودتان پر کنید و بفرستید.</div>
+        </details>
+        <details class="faq-item">
+          <summary>جاهای خالی زردرنگ چیست و چطور پر می‌شود؟</summary>
+          <div class="faq-a">هر چیزی داخل [کروشهٔ زرد] یک جای‌نگهدار است؛ مثلاً [پایهٔ هفتم] یا [متن درس]. آن را با اطلاعات واقعی خودتان جایگزین کنید. لازم نیست همه را پر کنید — فقط موارد مرتبط با کار خودتان.</div>
+        </details>
+        <details class="faq-item">
+          <summary>آیا استفاده از پرامپت‌ها رایگان است؟</summary>
+          <div class="faq-a">بله، کاملاً رایگان. می‌توانید پرامپت‌ها را آزادانه کپی، ویرایش و برای کار آموزشی خودتان استفاده کنید. خروجی JSON هم برای نگهداری آفلاین در اختیار شماست.</div>
+        </details>
+        <details class="faq-item">
+          <summary>علاقه‌مندی‌های من کجا ذخیره می‌شود؟</summary>
+          <div class="faq-a">فقط روی مرورگر خودتان (localStorage) — بدون ثبت‌نام و بدون ارسال به هیچ سروری. اگر مرورگر را عوض کنید یا دادهٔ مرورگر را پاک کنید، فهرست علاقه‌مندی‌ها هم پاک می‌شود؛ پس گاهی با دکمهٔ «علاقه‌مندی‌ها» از آن‌ها خروجی JSON بگیرید.</div>
+        </details>
+        <details class="faq-item">
+          <summary>جستجو چطور بهترین نتیجه را می‌دهد؟</summary>
+          <div class="faq-a">در عنوان، متن پرامپت، برچسب‌ها و نام دسته جستجو می‌شود و ی/ک عربی و فارسی را هم یکسان در نظر می‌گیرد. با کلید <b>/</b> (اسلش) از هر جای سایت سریع به جستجو بروید.</div>
+        </details>
+        <details class="faq-item">
+          <summary>برای کدام گروه‌ها مناسب است؟</summary>
+          <div class="faq-a">معلمان همهٔ مقاطع (ابتدایی تا دبیرستان)، استادان دانشگاه و پژوهشگران، مشاوران مدرسه، دستیاران آموزشی و کلاس‌های خصوصی. دستهٔ هر گروه در فیلتر بالای فهرست مشخص است.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>پرامپت یار</b> · ساخته‌شده با <span class="heart">♥</span> برای جامعهٔ آموزشی<br>
+    <span id="footCount">۵۷۰</span> پرامپت تخصصی در ۷ دسته · میانبر: دکمهٔ <kbd>/</kbd> برای جستجوی سریع · پرامپت‌ها را آزادانه کپی و ویرایش کنید
+  </div>
+</footer>
+
+<button class="toTop" id="toTop" aria-label="بازگشت به بالای صفحه">↑</button>
+<div class="toast" id="toast"></div>
+<span class="sr-only" aria-live="polite" id="live"></span>
+<noscript><p style="text-align:center;padding:2rem">برای نمایش پرامپت‌ها لطفاً جاوااسکریپت را فعال کنید.</p></noscript>
+
+<script src="prompts.js" defer></script>
+<script src="app.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "پرامپت یار",
+  "alternateName": "PromptYar",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Web",
+  "inLanguage": "fa-IR",
+  "description": "بانک ۵۷۰ پرامپت آماده برای معلمان، استادان و مشاوران؛ از طرح درس و آزمون تا مکاتبات اداری و مشاوره.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "IRR" }
+}
+</script>
+
+</body>
+</html>

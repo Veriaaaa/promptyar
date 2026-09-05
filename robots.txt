@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://Veriaaaa.github.io/promptyar/sitemap.xml
