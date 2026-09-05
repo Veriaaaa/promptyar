@@ -397,6 +397,34 @@ document.querySelectorAll('.nav-link').forEach(link => {
   });
 });
 
+/* ---------- به‌روزرسانی کلاس active منو هنگام اسکرول ---------- */
+const sections = document.querySelectorAll('section[id], .hero, .shelf, #tutorial');
+const navLinks = document.querySelectorAll('.nav-link');
+
+function updateActiveNav() {
+  const scrollY = window.scrollY;
+  let currentSection = '';
+  
+  sections.forEach(section => {
+    const sectionHeight = section.offsetHeight;
+    const sectionTop = section.offsetTop - 150;
+    const sectionId = section.getAttribute('id') || (section.classList.contains('hero') ? 'hero' : '');
+    
+    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      currentSection = sectionId;
+    }
+  });
+  
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.dataset.target === currentSection) {
+      link.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+
 /* لینک‌های لنگر (مثل «مشاهدهٔ پرامپت‌ها ↓» و لوگو) هم سریع اسکرول می‌شوند */
 document.querySelectorAll('a[href^="#"]:not(.nav-link)').forEach(a=>{
   a.addEventListener('click', e=>{
