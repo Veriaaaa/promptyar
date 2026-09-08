@@ -523,14 +523,36 @@ function updateFilterToggle(){
   }
   if(filterToggle){
     filterToggle.setAttribute('aria-expanded', String(filtersOpen));
-    if(filterToggleLabel) filterToggleLabel.textContent = filtersOpen ? 'بستن فیلترها' : 'درس / پایه / رشته';
+    if(filterToggleLabel) filterToggleLabel.textContent = filtersOpen ? 'بستن فیلترها' : 'فیلترها';
   }
 }
 if(filterToggle && filterPanel){
   filterToggle.addEventListener('click', (e)=>{
     e.stopPropagation();
-    filtersOpen = !filtersOpen;
-    filterPanel.classList.toggle('open', filtersOpen);
+    if(filtersOpen){
+      // بستن فیلترها + حذف تمام فیلترهای اعمال‌شده
+      filtersOpen = false;
+      filterPanel.classList.remove('open');
+      // ریست کردن فیلترهای درس/پایه/رشته
+      state.subj = 'all';
+      state.grade = 'all';
+      state.major = 'all';
+      // ریست کردن مقدار سلکت‌ها به حالت پیش‌فرض
+      const subjSel = $('#subjSel'), gradeSel = $('#gradeSel'), majorSel = $('#majorSel');
+      if(subjSel) subjSel.value = 'all';
+      if(gradeSel) gradeSel.value = 'all';
+      if(majorSel) majorSel.value = 'all';
+      // ریست کردن جستجو
+      const searchInput = $('#searchInput');
+      if(searchInput){ searchInput.value = ''; state.q = ''; }
+      // ریست کردن دسته‌بندی به "همه"
+      setCat('all');
+      return; // خروج از تابع، چون setCat خودش updateFilterToggle را صدا می‌زند
+    } else {
+      // باز کردن پنل فیلترها
+      filtersOpen = true;
+      filterPanel.classList.add('open');
+    }
     updateFilterToggle();
   });
   document.addEventListener('click', (e)=>{
