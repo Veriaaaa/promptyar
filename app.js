@@ -84,9 +84,9 @@ $('#chips').addEventListener('click', e=>{
 });
 
 /* ---------- فیلترهای درس/پایه/رشته ---------- */
-function countBy(field){
+function countBy(field, list = PROMPTS){
   const c = {};
-  PROMPTS.forEach(p=>{ if(p[field]) c[p[field]]=(c[p[field]]||0)+1; });
+  list.forEach(p=>{ if(p[field]) c[p[field]]=(c[p[field]]||0)+1; });
   return c;
 }
 function dimOk(p, field, val){
@@ -94,16 +94,16 @@ function dimOk(p, field, val){
   if(val==='none') return !p[field];
   return p[field]===val;
 }
-function buildSelects(){
+function buildSelects(list = PROMPTS){
   const fill = (sel, dict, field, allLabel, cur) => {
     if(!sel) return;
-    const counts = countBy(field);
+    const counts = countBy(field, list);
     const tagged = Object.values(counts).reduce((a,b)=>a+b, 0);
-    let html = `<option value="all">${allLabel} (${toFa(PROMPTS.length)})</option>`;
+    let html = `<option value="all">${allLabel} (${toFa(list.length)})</option>`;
     for(const [k,v] of Object.entries(dict)){
       html += `<option value="${k}" ${cur===k?'selected':''}>${v.icon} ${v.label} (${toFa(counts[k]||0)})</option>`;
     }
-    html += `<option value="none" ${cur==='none'?'selected':''}>✨ عمومی (${toFa(PROMPTS.length - tagged)})</option>`;
+    html += `<option value="none" ${cur==='none'?'selected':''}>✨ عمومی (${toFa(list.length - tagged)})</option>`;
     sel.innerHTML = html;
   };
   fill($('#subjSel'), SUBJECTS, 'subject', '📚 همهٔ دروس', state.subj);
@@ -175,6 +175,7 @@ function updateListUI(){
 }
 function applyFilter(opts = {}){
   fullList = PROMPTS.filter(matchesFilter);
+  buildSelects(fullList);
   const visible = fullList.slice(0, state.shown);
   $('#grid').innerHTML = visible.map((p,i)=>cardHTML(p,i,opts.noAnim)).join('');
   lastShown = visible.length;
