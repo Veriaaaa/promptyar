@@ -94,16 +94,47 @@ function dimOk(p, field, val){
   if(val==='none') return !p[field];
   return p[field]===val;
 }
+function countForOption(field, optionVal, currentList){
+  // تعداد پرامپت‌هایی که فیلترهای فعلی (به جز فیلتر همین فیلد) را دارند + این گزینه خاص
+  const otherFilters = {
+    subj: state.subj,
+    grade: state.grade,
+    major: state.major
+  };
+  // فیلتر همین فیلد را موقتاً حذف می‌کنیم تا بتوانیم تقاطع را حساب کنیم
+  otherFilters[field] = 'all';
+  
+  let count = 0;
+  for(const p of currentList){
+    // بررسی می‌کنیم که آیا این پرامپت با فیلترهای دیگر سازگار است؟
+    let ok = true;
+    if(otherFilters.subj !== 'all' && p.subject !== otherFilters.subj) ok = false;
+    if(otherFilters.grade !== 'all' && p.grade !== otherFilters.grade) ok = false;
+    if(otherFilters.major !== 'all' && p.major !== otherFilters.major) ok = false;
+    
+    // حالا بررسی می‌کنیم که آیا با گزینه مورد نظر ما هم سازگار است؟
+    if(ok){
+      if(optionVal === 'none'){
+        if(p[field]) ok = false;
+      } else if(optionVal !== 'all'){
+        if(p[field] !== optionVal) ok = false;
+      }
+    }
+    if(ok) count++;
+  }
+  return count;
+}
 function buildSelects(list = PROMPTS){
   const fill = (sel, dict, field, allLabel, cur) => {
     if(!sel) return;
-    const counts = countBy(field, list);
-    const tagged = Object.values(counts).reduce((a,b)=>a+b, 0);
+    const tagged = list.filter(p=>p[field]).length;
     let html = `<option value="all">${allLabel} (${toFa(list.length)})</option>`;
     for(const [k,v] of Object.entries(dict)){
-      html += `<option value="${k}" ${cur===k?'selected':''}>${v.icon} ${v.label} (${toFa(counts[k]||0)})</option>`;
+      const cnt = countForOption(field, k, list);
+      html += `<option value="${k}" ${cur===k?'selected':''}>${v.icon} ${v.label} (${toFa(cnt)})</option>`;
     }
-    html += `<option value="none" ${cur==='none'?'selected':''}>✨ عمومی (${toFa(list.length - tagged)})</option>`;
+    const noneCnt = countForOption(field, 'none', list);
+    html += `<option value="none" ${cur==='none'?'selected':''}>✨ عمومی (${toFa(noneCnt)})</option>`;
     sel.innerHTML = html;
   };
   fill($('#subjSel'), SUBJECTS, 'subject', '📚 همهٔ دروس', state.subj);
