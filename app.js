@@ -232,6 +232,17 @@ function loadMore(){
   }
 }
 
+/* ---------- ابزار ردیابی رویدادها ---------- */
+function trackEvent(eventName, data){
+  if(window.goatcounter && window.goatcounter.count){
+    window.goatcounter.count({
+      path: eventName,
+      title: data,
+      event: true
+    });
+  }
+}
+
 /* ---------- کپی و اشتراک‌گذاری ---------- */
 async function doCopy(text){
   try{ await navigator.clipboard.writeText(text); return; }catch(e){}
@@ -247,10 +258,12 @@ async function sharePrompt(p){
   if(navigator.share){
     try{
       await navigator.share({ title:'پرامپت یار — '+p.title, text, url: location.origin + location.pathname });
+      trackEvent('share/' + p.cat, 'اشتراک: ' + p.title);
       return;
     }catch(e){ if(e && e.name==='AbortError') return; }
   }
   await doCopy(text);
+  trackEvent('share-copy/' + p.cat, 'کپی اشتراک: ' + p.title);
   showToast('📋 متن پرامپت کپی شد');
 }
 
@@ -259,6 +272,10 @@ $('#grid').addEventListener('click', async e=>{
   if(copyBtn){
     const p = PROMPTS.find(x=>x.id==copyBtn.dataset.copy); if(!p) return;
     await doCopy(plainText(p.text));
+
+    // ✅ ردیابی کپی — داخل event handler و بعد از تعریف p
+    trackEvent('copy/' + p.cat, 'کپی: ' + p.title);
+
     copyBtn.classList.add('copied');
     copyBtn.innerHTML = CHECK_IC + '<span>کپی شد!</span>';
     $('#live').textContent = 'متن پرامپت کپی شد';
@@ -270,21 +287,18 @@ $('#grid').addEventListener('click', async e=>{
     return;
   }
   const starBtn = e.target.closest('.star-btn');
-  if(starBtn){ toggleFav(Number(starBtn.dataset.fav)); return; }
+  if(starBtn){
+    const p = PROMPTS.find(x=>x.id==starBtn.dataset.fav);
+    if(p) trackEvent('favorite/' + p.cat, 'علاقه‌مندی: ' + p.title);
+    toggleFav(Number(starBtn.dataset.fav));
+    return;
+  }
   const shareBtn = e.target.closest('.share-btn');
   if(shareBtn){
     const p = PROMPTS.find(x=>x.id==shareBtn.dataset.share);
     if(p) sharePrompt(p);
   }
 });
-
-if (window.goatcounter && window.goatcounter.count) {
-  window.goatcounter.count({
-    path: 'copy/' + p.title,
-    title: 'کپی: ' + p.title,
-    event: true
-  });
-}
 
 /* ---------- علاقه‌مندی‌ها و خروجی JSON ---------- */
 function toggleFav(id){
