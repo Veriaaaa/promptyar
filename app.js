@@ -278,6 +278,14 @@ $('#grid').addEventListener('click', async e=>{
   }
 });
 
+if (window.goatcounter && window.goatcounter.count) {
+  window.goatcounter.count({
+    path: 'copy/' + p.title,
+    title: 'کپی: ' + p.title,
+    event: true
+  });
+}
+
 /* ---------- علاقه‌مندی‌ها و خروجی JSON ---------- */
 function toggleFav(id){
   favs = favs.includes(id) ? favs.filter(x=>x!==id) : [...favs, id];
